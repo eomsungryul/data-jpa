@@ -75,4 +75,22 @@ public class MemberRepositoryTest {
 		assertThat(result.get(0).getAge()).isEqualTo(20);
 		assertThat(result.size()).isEqualTo(1);
 	}
+	
+
+	@Test
+	public void returnType() {
+
+		Member m1 = new Member("AAA", 10);
+		Member m2 = new Member("AAA", 20);
+		memberRepository.save(m1);
+		memberRepository.save(m2);
+
+		List<Member> result = memberRepository.findListByUsername("AAA");
+		//결과 없음: 빈 컬렉션 반환
+		Member findMemver = memberRepository.findMemberByUsername("AAA");
+		//멤버는 널이 나옴 없을 시에 
+		
+		//있을 수도 있고 없을수도 있으면 옵셔널로 하는게 제일 나음
+		
+	}
 }
