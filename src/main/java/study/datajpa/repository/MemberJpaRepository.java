@@ -66,5 +66,17 @@ public class MemberJpaRepository {
 		 .setParameter("age", age)
 		 .getSingleResult();
 	}
+	
+	//벌크성 쿼리란 그냥 전체 반영 할때.. 쓰는 쿼리들
+	public int bulkAgePlus(int age) {
+		 int resultCount = em.createQuery("update Member m set m.age = m.age + 1" +
+										 "where m.age >= :age")
+										 .setParameter("age", age)
+										 .executeUpdate();
+		 return resultCount;
+	}
+	
+	
+	
 
 }

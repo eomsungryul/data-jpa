@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedQuery;
 
 import lombok.AccessLevel;
@@ -21,7 +23,9 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 막고 싶은데, JPA 스팩상 PROTECTED로 열어두어야 함
 @ToString(of = { "id", "username", "age" }) // 연관관계 필드는 toString 별로.. team 추가하면 무한 루프 돌거임
 @NamedQuery(name = "Member.findByUsername", query = "select m from Member m where m.username = :username")
-public class Member {
+@NamedEntityGraph(name = "Member.all", attributeNodes =
+@NamedAttributeNode("team"))//이런식으로 바로 붙여서 가능 잘안씀
+public class Member extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name = "member_id")
